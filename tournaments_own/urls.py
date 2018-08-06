@@ -22,6 +22,11 @@ from tournaments_own.town import views
 router = routers.DefaultRouter()
 router.register('users', views.UserViewSet)
 router.register('groups', views.GroupViewSet)
+router.register('teams', views.TeamViewSet)
+router.register('games', views.GameViewSet)
+router.register('tournaments', views.TournamentViewSet)
+router.register('team-stats', views.TeamStatViewSet)
+router.register('player-stats', views.PlayerStatViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

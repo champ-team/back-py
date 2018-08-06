@@ -13,3 +13,10 @@ pip install -r requirements.txt
 python manage.py migrate
 
 python manage.py createsuperuser --email admin@example.com --username admin
+
+
+TODO
+
+- images
+- relations
+- tests
