@@ -29,7 +29,7 @@ router.register('team-stats', views.TeamStatViewSet)
 router.register('player-stats', views.PlayerStatViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('api-token-auth/', auth_views.obtain_auth_token)
 ]
