@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from tournaments_own.town.models import Team, TeamStat, Tournament, Game, PlayerStat
 from tournaments_own.town.serializers import (
     UserSerializer, GroupSerializer, TeamSerializer,
@@ -34,6 +35,7 @@ class TournamentViewSet(viewsets.ModelViewSet):
 
 
 class GameViewSet(viewsets.ModelViewSet):
+    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 
