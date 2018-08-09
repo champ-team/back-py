@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
-from datetime import datetime
+from django.utils import timezone
+
 
 
 class UserAttribute(models.Model):
@@ -14,7 +15,7 @@ class Game(models.Model):
     map_name = models.CharField(max_length=255)
     server_name = models.CharField(max_length=255)
     server_password = models.CharField(max_length=255)
-    start_time = models.DateTimeField()
+    start_time = models.DateTimeField(default=timezone.now)
 
 
 class Team(models.Model):
@@ -30,7 +31,7 @@ class Tournament(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     number_of_games = models.PositiveIntegerField(default=1)
-    start_time = models.DateTimeField(default=datetime.now)
+    start_time = models.DateTimeField(default=timezone.now)
     teams = models.ManyToManyField(Team)
     games = models.ManyToManyField(Game)
 
