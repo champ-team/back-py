@@ -17,5 +17,9 @@ python manage.py createsuperuser --email admin@example.com --username admin
 
 TODO
 
-- tests
-- discuss buisness logic
+- tests all routers
+- user attributes
+- invites
+- filters(serializers)
+- ordrering
+- documentation(api)
