@@ -56,8 +56,7 @@ class TournamentViewSet(viewsets.ReadOnlyModelViewSet):
         raise exceptions.PermissionDenied()
 
 
-class GameViewSet(viewsets.ModelViewSet):
-    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
+class GameViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 
