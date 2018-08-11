@@ -11,3 +11,12 @@ class GameFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Game
+
+    @factory.post_generation
+    def tournaments(self, create, extracted, **kwargs):
+        if not create:
+            return
+
+        if extracted:
+            for tournament in extracted:
+                self.tournaments.add(tournament)
