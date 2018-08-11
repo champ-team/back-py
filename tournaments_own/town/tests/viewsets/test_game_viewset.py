@@ -11,8 +11,8 @@ class GameViewSetTests(APITestCase):
         url = reverse('game-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(game.map_name, response.data[0]['map_name'])
+        self.assertEqual(len(response.data['results']), 1)
+        self.assertEqual(game.map_name, response.data['results'][0]['map_name'])
 
     def test_retrieve_game(self):
         game = GameFactory()

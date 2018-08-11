@@ -28,6 +28,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
+    filter_fields = ('name', 'tournaments')
 
 
 class TeamStatViewSet(viewsets.ModelViewSet):
@@ -59,6 +60,7 @@ class TournamentViewSet(viewsets.ReadOnlyModelViewSet):
 class GameViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
+    filter_fields = ('tournaments',)
 
 
 class PlayerStatViewSet(viewsets.ModelViewSet):

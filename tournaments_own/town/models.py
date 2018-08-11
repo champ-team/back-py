@@ -10,12 +10,19 @@ class UserAttribute(models.Model):
     name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
 
+    class Meta:
+        ordering = ['-id']
+
 
 class Game(models.Model):
     map_name = models.CharField(max_length=255)
     server_name = models.CharField(max_length=255)
     server_password = models.CharField(max_length=255)
     start_time = models.DateTimeField(default=timezone.now)
+    tournaments = models.ManyToManyField('Tournament', blank=True)
+
+    class Meta:
+        ordering = ['-id']
 
 
 class Team(models.Model):
@@ -23,7 +30,11 @@ class Team(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner', null=True, blank=True)
     users = models.ManyToManyField(User, blank=True)
     games = models.ManyToManyField(Game, blank=True)
+    tournaments = models.ManyToManyField('Tournament', blank=True)
     name = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ['-id']
 
 
 class Tournament(models.Model):
@@ -35,13 +46,22 @@ class Tournament(models.Model):
     teams = models.ManyToManyField(Team, blank=True)
     games = models.ManyToManyField(Game, blank=True)
 
+    class Meta:
+        ordering = ['start_time']
+
 
 class TeamStat(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, null=True, blank=True)
     standing = models.TextField()
+
+    class Meta:
+        ordering = ['-id']
 
 
 class PlayerStat(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     kills = models.IntegerField()
+
+    class Meta:
+        ordering = ['-id']
