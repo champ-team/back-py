@@ -9,7 +9,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import exceptions
 from django.shortcuts import get_object_or_404
 from tournaments_own.town.serializers import (
-    UserSerializer, GroupSerializer, TeamSerializer,
+    UserSerializer, TeamSerializer,
     TeamStatSerializer, TournamentSerializer, GameSerializer,
     PlayerStatSerializer
 )
@@ -18,11 +18,6 @@ from tournaments_own.town.serializers import (
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-
-
-class GroupViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
 
 
 class TeamViewSet(viewsets.ModelViewSet):

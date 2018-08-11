@@ -8,7 +8,6 @@ from django.conf.urls.static import static
 
 router = routers.DefaultRouter()
 router.register('users', views.UserViewSet)
-router.register('groups', views.GroupViewSet)
 router.register('teams', views.TeamViewSet)
 router.register('games', views.GameViewSet)
 router.register('tournaments', views.TournamentViewSet)

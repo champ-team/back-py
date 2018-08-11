@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from tournaments_own.town.models import Team, TeamStat, Tournament, Game, PlayerStat
 from rest_framework import serializers
 
@@ -6,13 +6,7 @@ from rest_framework import serializers
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'groups')
-
-
-class GroupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Group
-        fields = ('url', 'name')
+        fields = ( 'username',)
 
 
 class TeamSerializer(serializers.ModelSerializer):
