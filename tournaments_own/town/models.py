@@ -21,8 +21,8 @@ class Game(models.Model):
 class Team(models.Model):
     logo = models.ImageField(upload_to='team_logos', default='default_350_150.png')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner', null=True, blank=True)
-    users = models.ManyToManyField(User)
-    games = models.ManyToManyField(Game)
+    users = models.ManyToManyField(User, blank=True)
+    games = models.ManyToManyField(Game, blank=True)
     name = models.CharField(max_length=255)
 
 
@@ -32,8 +32,8 @@ class Tournament(models.Model):
     description = models.TextField()
     number_of_games = models.PositiveIntegerField(default=1)
     start_time = models.DateTimeField(default=timezone.now)
-    teams = models.ManyToManyField(Team)
-    games = models.ManyToManyField(Game)
+    teams = models.ManyToManyField(Team, blank=True)
+    games = models.ManyToManyField(Game, blank=True)
 
 
 class TeamStat(models.Model):

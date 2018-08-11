@@ -1,7 +1,13 @@
 from django.contrib.auth.models import User, Group
+from django.http import HttpResponseForbidden
 from rest_framework import viewsets
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, IsAuthenticatedOrReadOnly
+from rest_framework.decorators import action
 from tournaments_own.town.models import Team, TeamStat, Tournament, Game, PlayerStat
+from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
+from rest_framework import exceptions
+from django.shortcuts import get_object_or_404
 from tournaments_own.town.serializers import (
     UserSerializer, GroupSerializer, TeamSerializer,
     TeamStatSerializer, TournamentSerializer, GameSerializer,
@@ -29,9 +35,25 @@ class TeamStatViewSet(viewsets.ModelViewSet):
     serializer_class = TeamStatSerializer
 
 
-class TournamentViewSet(viewsets.ModelViewSet):
+class TournamentViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Tournament.objects.all()
     serializer_class = TournamentSerializer
+
+    @action(methods=['post'], detail=True)
+    def subscribe_team(self, request, pk=None):
+        """
+        data = {'team_id': int}
+        """
+        team = get_object_or_404(Team, pk=request.data.get('team_id', None))
+
+        if team.owner == request.user:
+           tournament = self.get_object()
+           tournament.teams.add(team)
+           tournament.save()
+           return Response({'status': 'team is registered'})
+
+        raise exceptions.PermissionDenied()
 
 
 class GameViewSet(viewsets.ModelViewSet):
