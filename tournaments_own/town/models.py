@@ -5,7 +5,7 @@ from django.utils import timezone
 
 
 class UserAttribute(models.Model):
-    avatar = models.ImageField(upload_to='user_avatars', default='default.png')
+    avatar = models.ImageField(upload_to='user_avatars/%d', default='default.png')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -19,7 +19,7 @@ class Game(models.Model):
 
 
 class Team(models.Model):
-    logo = models.ImageField(upload_to='team_logos', default='default.png')
+    logo = models.ImageField(upload_to='team_logos/%d', default='default.png')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner', null=True, blank=True)
     users = models.ManyToManyField(User, blank=True)
     games = models.ManyToManyField(Game, blank=True)
@@ -27,7 +27,7 @@ class Team(models.Model):
 
 
 class Tournament(models.Model):
-    thumbnail = models.ImageField(upload_to='tournament_thumbnails', default='default.png')
+    thumbnail = models.ImageField(upload_to='tournament_thumbnails/%d', default='default.png')
     name = models.CharField(max_length=255)
     description = models.TextField()
     number_of_games = models.PositiveIntegerField(default=1)
